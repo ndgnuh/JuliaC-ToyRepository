@@ -131,18 +131,20 @@ function init_model(config::ModelConfig)::Model
 end
 
 function draw_heatmap!(config::DisplayConfig, data::Matrix{Bool})::Nothing
-    @unpack width, height = config
+    width = Raylib.Binding.GetScreenWidth()
+    height = Raylib.Binding.GetScreenHeight()
 
-    border_size = 50
+    border_size_x = 10
+    border_size_y = 100
 
-    canvas_x = border_size + 1
-    canvas_y = border_size + 1
-    canvas_width = width - border_size * 2
-    canvas_height = height - border_size * 2
+    canvas_x = border_size_x + 1
+    canvas_y = border_size_y + 1
+    canvas_width = width - border_size_x * 2
+    canvas_height = height - border_size_y * 2
 
     raylib.ClearBackground(Raylib.BLACK)
     raylib.DrawRectangle(
-        border_size, border_size,
+        canvas_x, canvas_y,
         canvas_width, canvas_height,
         Raylib.RAYWHITE
     )
@@ -155,8 +157,8 @@ function draw_heatmap!(config::DisplayConfig, data::Matrix{Bool})::Nothing
 
     for y::Int in 1:rows, x::Int in 1:cols
 
-        cell_x::Float64 = (x - 1) * cell_width + border_size
-        cell_y::Float64 = (y - 1) * cell_height + border_size
+        cell_x::Float64 = (x - 1) * cell_width + canvas_x
+        cell_y::Float64 = (y - 1) * cell_height + canvas_y
         position = SVector{2, Float64}(cell_x, cell_y)
 
         value = data[y, x]::Bool
@@ -174,17 +176,21 @@ end
 function draw_animals!(
         config::DisplayConfig, model::Model, animals::Animals, color::Color
     )::Nothing
-    @unpack width, height = config
+    width = Raylib.Binding.GetScreenWidth()
+    height = Raylib.Binding.GetScreenHeight()
 
     border_size = 50
 
     @unpack config = model
     map_h, map_w = model.config.dims
 
-    canvas_x = border_size
-    canvas_y = border_size
-    canvas_width = width - border_size * 2
-    canvas_height = height - border_size * 2
+    border_size_x = 10
+    border_size_y = 100
+
+    canvas_x = border_size_x + 1
+    canvas_y = border_size_y + 1
+    canvas_width = width - border_size_x * 2
+    canvas_height = height - border_size_y * 2
     n_animals = size(animals.positions, 2)
 
 
@@ -213,11 +219,12 @@ function visualize(model::Model, config::DisplayConfig)::Nothing
     raylib.ClearBackground(Raylib.RAYWHITE)
 
 
+    width = Raylib.Binding.GetScreenWidth()
     draw_heatmap!(config, model.grass)
     draw_animals!(config, model, model.preys, Raylib.BLUE)
     draw_animals!(config, model, model.predators, Raylib.RED)
 
-    raylib.DrawFPS(config.width - 100, 5)
+    raylib.DrawFPS(width - 100, 5)
     raylib.DrawText(
         "Step $(model.step)",
         5, 5, 20, Raylib.WHITE

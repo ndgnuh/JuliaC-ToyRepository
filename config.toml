@@ -1,5 +1,6 @@
-display_width = 800
-display_height = 600
+display_width = 1280
+display_height = 720
+display_border_size = 100
 title = "Raylib-JuliaC compilation test"
 
 

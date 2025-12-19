@@ -52,6 +52,7 @@ function (@main)(ARGS)::Cint
         display_config.height,
         "Predator-Prey-Grass Model"
     )
+    raylib.SetConfigFlags(Raylib.Binding.FLAG_WINDOW_RESIZABLE |> Int)
 
     # Display loop
     # ============
