@@ -1,0 +1,23 @@
+display_width = 800
+display_height = 600
+title = "Raylib-JuliaC compilation test"
+
+
+n_predators = 50
+n_preys = 100
+
+dims = [150, 150]
+regrowth_time = 30
+
+delta_energy_prey = 4.0
+delta_energy_predator = 20.0
+
+prey_reproduce = 0.08
+predator_reproduce = 0.05
+
+momentum = 0.5
+prey_speed = 0.75
+predator_speed = 1.0
+hunt_distance = 1.0
+
+seed = 0

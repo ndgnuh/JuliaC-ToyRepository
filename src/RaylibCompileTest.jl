@@ -20,9 +20,11 @@ using .PredatorPreyGrass:
 using Random
 
 function (@main)(ARGS)::Cint
-    @assert length(ARGS) >= 1 "Missing config file"
-    @assert length(ARGS) <= 1 "Extra arguments found"
-    input_file = first(ARGS)
+    if length(ARGS) > 0
+        input_file = first(ARGS)
+    else
+        input_file = "./config.toml"
+    end
 
     # Read model config
     # =================
