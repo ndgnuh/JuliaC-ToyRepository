@@ -47,12 +47,12 @@ function (@main)(ARGS)::Cint
 
     # Initialize display
     # ==================
+    raylib.SetConfigFlags(Raylib.Binding.FLAG_WINDOW_RESIZABLE |> Int)
     raylib.InitWindow(
         display_config.width,
         display_config.height,
         "Predator-Prey-Grass Model"
     )
-    raylib.SetConfigFlags(Raylib.Binding.FLAG_WINDOW_RESIZABLE |> Int)
 
     # Display loop
     # ============
